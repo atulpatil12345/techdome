@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: /home/atul/techdome/docker/frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: /home/atul/techdome/docker/backend/Techdome-backend
+    environment:
+      - DATABASE_URL=mongodb://db:27017/techdome  # Update to use 'db' as the MongoDB hostname
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: mongo:latest
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongodb-data:
+

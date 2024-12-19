@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: backend-app # pull image if not present locally 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DATABASE_URL
+          value: "mongodb://db:27017/techdome"
+
